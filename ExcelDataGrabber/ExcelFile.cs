@@ -9,32 +9,56 @@ using System.Threading.Tasks;
 
 namespace ExcelDataGrabber
 {
+    /// <summary>
+    /// Base nonspecific Excel file reader. Reads pretty much any type of Excel file.
+    /// </summary>
     public class ExcelFile
     {
-        public DataTable DT { get; set; }
-                
+        private DataTable dt;
+
+        public DataTable DT
+        {
+            get { return dt; }            
+        }
+
+                        
+        /// <summary>
+        /// Returns the contents of a specific cell in the Excel file.
+        /// </summary>
+        /// <param name="column"></param>
+        /// <param name="row"></param>
+        /// <returns>Cell contents as String</returns>
         public string GetCellContents(int column, int row)
         {
             return DT.Rows[row].Field<string>(column);
         } 
 
+        /// <summary>
+        /// Exposes the number of rows in the Excel table
+        /// </summary>
         public int RowCount
         {
             get { return DT.Rows.Count; }
             
         }
-        
+
+        /// <summary>
+        /// Exposes the number of columns in the Excel table
+        /// </summary>
         public int ColumnCount
         {
             get { return DT.Columns.Count; }
         
-        }
-        
+        }        
 
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="filePath"></param>
         public ExcelFile(string filePath)
         {
             
-            FileStream stream = File.Open(filePath, FileMode.Open, FileAccess.Read);
+            var stream = File.Open(filePath, FileMode.Open, FileAccess.Read);
             IExcelDataReader excelReader;
 
             //1. Reading Excel file
@@ -55,13 +79,15 @@ namespace ExcelDataGrabber
             //3. DataSet - Create column names from first row
             excelReader.IsFirstRowAsColumnNames = false;
 
-            DT = result.Tables[0];
+            dt = result.Tables[0];
             excelReader.Close();
-        }
-
-        
+        }        
 
     }
+
+    /// <summary>
+    /// An Excel file that contains schedule information. It is assumed that at least one of the columns contains a job number (does not need to be unique so that a job can be scheduled more than once) and at least one column contains a DateTime.
+    /// </summary>
     public class ExcelSchedule : ExcelFile
     {
         public ExcelSchedule(string filePath) : base(filePath)
@@ -69,12 +95,16 @@ namespace ExcelDataGrabber
         }
         public int JobNumberColumn { get; set; }
 
-        public List<String> ReturnJobNumbers()
+        /// <summary>
+        /// Returns a list of job numbers (invoice numbers, docket numbers ... etc). Requires JobNumberColumn to be set or it will return Null
+        /// </summary>
+        /// <returns>List of strings</returns>
+        public List<string> ReturnJobNumbers()
         {
-            List<String> JobsNumberList = new List<string>();
+            var JobsNumberList = new List<string>();
             int JN;
 
-            if (this.JobNumberColumn == -1)
+            if (JobNumberColumn == -1)
             {
                 return null;
             }
@@ -84,7 +114,7 @@ namespace ExcelDataGrabber
                 {
                     if (int.TryParse(GetCellContents(JobNumberColumn, i), out JN))
                     {
-                        JobsNumberList.Add(this.DT.Rows[i][JobNumberColumn].ToString());
+                        JobsNumberList.Add(DT.Rows[i][JobNumberColumn].ToString());
                     }
 
                 }
@@ -92,12 +122,15 @@ namespace ExcelDataGrabber
             }
         }
 
-
-        public List<String> ReturnUniqueJobNumbers()
+        /// <summary>
+        /// Returns a list of only the unique job numbers in a schedule. Requires JobNumberColumn to be set or it will return Null.
+        /// </summary>
+        /// <returns>List of strings</returns>
+        public List<string> ReturnUniqueJobNumbers()
         {
-            List<string> UniqueJobNumbers = new List<string>();
+            var UniqueJobNumbers = new List<string>();
 
-            if (this.JobNumberColumn == -1)
+            if (JobNumberColumn == -1)
             {
                 return null;
             }

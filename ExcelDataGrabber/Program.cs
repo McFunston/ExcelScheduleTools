@@ -16,9 +16,9 @@ namespace ExcelDataGrabber
             var xf = new ExcelSchedule("c:\\Huntclub.xls");
 
             xf.JobNumberColumn = 1;
-            List<string> JobNumbers = xf.ReturnUniqueJobNumbers();
+            
 
-            foreach (var JN in JobNumbers)
+            foreach (var JN in xf.ReturnUniqueJobNumbers())
             {
                 Console.WriteLine(JN);
             }
