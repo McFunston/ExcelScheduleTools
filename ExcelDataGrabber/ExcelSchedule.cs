@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,9 +9,10 @@ namespace ExcelDataGrabber
 {
     public class ExcelSchedule : ExcelFile
     {
-        public ExcelSchedule(string filePath) : base(filePath)
+        public ExcelSchedule(DataTable dataTable) : base(dataTable)
         {
         }
+
         public int JobNumberColumn { get; set; }
 
         /// <summary>

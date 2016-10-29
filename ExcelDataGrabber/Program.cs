@@ -13,7 +13,7 @@ namespace ExcelDataGrabber
     {
         static void Main(string[] args)
         {
-            var xf = new ExcelSchedule("c:\\Huntclub.xls");
+            var xf = new ExcelSchedule(DataGrabber.GrabExcelFile("c:\\Huntclub.xls"));
 
             xf.JobNumberColumn = 1;
             
