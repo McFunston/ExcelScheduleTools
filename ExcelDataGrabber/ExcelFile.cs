@@ -14,7 +14,7 @@ namespace ExcelDataGrabber
     /// </summary>
     public class ExcelFile
     {
-        private DataTable dt;
+        private readonly DataTable dt;
 
         public DataTable DT
         {
@@ -74,7 +74,7 @@ namespace ExcelDataGrabber
             }
 
             //2. DataSet - The result of each spreadsheet will be created in the result.Tables
-            DataSet result = excelReader.AsDataSet();
+            var result = excelReader.AsDataSet();
 
             //3. DataSet - Create column names from first row
             excelReader.IsFirstRowAsColumnNames = false;
@@ -88,63 +88,5 @@ namespace ExcelDataGrabber
     /// <summary>
     /// An Excel file that contains schedule information. It is assumed that at least one of the columns contains a job number (does not need to be unique so that a job can be scheduled more than once) and at least one column contains a DateTime.
     /// </summary>
-    public class ExcelSchedule : ExcelFile
-    {
-        public ExcelSchedule(string filePath) : base(filePath)
-        {
-        }
-        public int JobNumberColumn { get; set; }
-
-        /// <summary>
-        /// Returns a list of job numbers (invoice numbers, docket numbers ... etc). Requires JobNumberColumn to be set or it will return Null
-        /// </summary>
-        /// <returns>List of strings</returns>
-        public List<string> ReturnJobNumbers()
-        {
-            var JobsNumberList = new List<string>();
-            int JN;
-
-            if (JobNumberColumn == -1)
-            {
-                return null;
-            }
-            else
-            {
-                for (int i = 0; i < this.RowCount; i++)
-                {
-                    if (int.TryParse(GetCellContents(JobNumberColumn, i), out JN))
-                    {
-                        JobsNumberList.Add(DT.Rows[i][JobNumberColumn].ToString());
-                    }
-
-                }
-                return JobsNumberList;
-            }
-        }
-
-        /// <summary>
-        /// Returns a list of only the unique job numbers in a schedule. Requires JobNumberColumn to be set or it will return Null.
-        /// </summary>
-        /// <returns>List of strings</returns>
-        public List<string> ReturnUniqueJobNumbers()
-        {
-            var UniqueJobNumbers = new List<string>();
-
-            if (JobNumberColumn == -1)
-            {
-                return null;
-            }
-            else
-            {
-                foreach (var JN in ReturnJobNumbers())
-                {
-                    if (!(UniqueJobNumbers.Contains(JN)))
-                    {
-                        UniqueJobNumbers.Add(JN);
-                    }
-                }
-                return UniqueJobNumbers;
-            }
-        }
-    }
+    
 }
