@@ -13,6 +13,11 @@ namespace ExcelDataGrabber
     {
         public DataTable DT { get; set; }
         private int rowCount;
+        
+        public string GetCellContents(int column, int row)
+        {
+            return DT.Rows[row].Field<string>(column);
+        } 
 
         public int RowCount
         {
@@ -26,7 +31,7 @@ namespace ExcelDataGrabber
             get { return DT.Columns.Count; }
         
         }
-        public int JobNumberColumn { get; set; }
+        
 
         public ExcelFile(string filePath)
         {
@@ -55,6 +60,60 @@ namespace ExcelDataGrabber
             DT = result.Tables[0];
             excelReader.Close();
         }
+
         
+
+    }
+    public class ExcelSchedule : ExcelFile
+    {
+        public ExcelSchedule(string filePath) : base(filePath)
+        {
+        }
+        public int JobNumberColumn { get; set; }
+
+        public List<String> ReturnJobNumbers()
+        {
+            List<String> JobsNumberList = new List<string>();
+            int JN;
+
+            if (this.JobNumberColumn == -1)
+            {
+                return null;
+            }
+            else
+            {
+                for (int i = 0; i < this.RowCount; i++)
+                {
+                    if (int.TryParse(GetCellContents(JobNumberColumn, i), out JN))
+                    {
+                        JobsNumberList.Add(this.DT.Rows[i][JobNumberColumn].ToString());
+                    }
+
+                }
+                return JobsNumberList;
+            }
+        }
+
+
+        public List<String> ReturnUniqueJobNumbers()
+        {
+            List<string> UniqueJobNumbers = new List<string>();
+
+            if (this.JobNumberColumn == -1)
+            {
+                return null;
+            }
+            else
+            {
+                foreach (var JN in ReturnJobNumbers())
+                {
+                    if (!(UniqueJobNumbers.Contains(JN)))
+                    {
+                        UniqueJobNumbers.Add(JN);
+                    }
+                }
+                return UniqueJobNumbers;
+            }
+        }
     }
 }

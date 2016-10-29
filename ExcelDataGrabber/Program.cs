@@ -13,11 +13,15 @@ namespace ExcelDataGrabber
     {
         static void Main(string[] args)
         {
-            var xf = new ExcelFile("c:\\Huntclub.xls");
+            var xf = new ExcelSchedule("c:\\Huntclub.xls");
+
             xf.JobNumberColumn = 1;
+            List<string> JobNumbers = xf.ReturnUniqueJobNumbers();
 
-
-            
+            foreach (var JN in JobNumbers)
+            {
+                Console.WriteLine(JN);
+            }
             Console.ReadKey();
 
 
