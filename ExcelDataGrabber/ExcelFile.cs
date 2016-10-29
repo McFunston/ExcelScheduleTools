@@ -12,8 +12,7 @@ namespace ExcelDataGrabber
     public class ExcelFile
     {
         public DataTable DT { get; set; }
-        private int rowCount;
-        
+                
         public string GetCellContents(int column, int row)
         {
             return DT.Rows[row].Field<string>(column);
@@ -24,8 +23,7 @@ namespace ExcelDataGrabber
             get { return DT.Rows.Count; }
             
         }
-        private int columnCount;
-
+        
         public int ColumnCount
         {
             get { return DT.Columns.Count; }
