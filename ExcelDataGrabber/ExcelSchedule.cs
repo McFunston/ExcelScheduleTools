@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -65,6 +66,29 @@ namespace ExcelDataGrabber
                 }
                 return UniqueJobNumbers;
             }
+        }
+
+        public int GetJobNumberRow(string jobNumber)
+        {
+            int i = 0;
+            foreach (string JN in ReturnJobNumbers())
+            {
+                
+                if (JN.Equals(jobNumber))
+                {
+                    return i;                                      
+                }
+                i++;
+            }
+            return i;
+        }
+
+        public DateTime ReturnDateTimeFromCell(int column, string jobNumber, string format)
+        {
+            CultureInfo ci = new CultureInfo(CultureInfo.CurrentCulture.LCID);
+            ci.Calendar.TwoDigitYearMax = 2099;
+            DateTime dt = DateTime.ParseExact(GetCellContents(column, GetJobNumberRow(jobNumber)), format, ci);
+            return dt;
         }
     }
 }
