@@ -68,6 +68,11 @@ namespace ExcelDataGrabber
             }
         }
 
+        /// <summary>
+        /// Get the row number for the first instance of a job number 
+        /// </summary>
+        /// <param name="jobNumber"></param>
+        /// <returns></returns>
         public int GetJobNumberRow(string jobNumber)
         {
             int i = 0;
@@ -83,6 +88,13 @@ namespace ExcelDataGrabber
             return i;
         }
 
+        /// <summary>
+        /// Return a proper DateTime from a Cell using format as the Format string
+        /// </summary>
+        /// <param name="column"></param>
+        /// <param name="jobNumber"></param>
+        /// <param name="format"></param>
+        /// <returns></returns>
         public DateTime ReturnDateTimeFromCell(int column, string jobNumber, string format)
         {
             CultureInfo ci = new CultureInfo(CultureInfo.CurrentCulture.LCID);
