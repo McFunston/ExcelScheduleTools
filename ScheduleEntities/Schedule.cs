@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ScheduleEntities
 {
-    class Schedule
+    public class Schedule
     {
         public List<IWorkUnit> WorkUnits { get; set; }
 

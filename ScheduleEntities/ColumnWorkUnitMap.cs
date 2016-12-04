@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ScheduleEntities
 {
-    struct ColumnWorkUnitMap
+    public struct ColumnWorkUnitMap
     {
         public int JobNumber { get; set; }
         public int ClientName { get; set; }

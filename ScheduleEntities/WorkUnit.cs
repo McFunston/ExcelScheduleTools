@@ -2,7 +2,7 @@
 
 namespace ScheduleEntities
 {
-    class WorkUnit : IWorkUnit
+    public class WorkUnit : IWorkUnit
     {
         public string JobNumber { get; set; }
         public string ClientName { get; set; }

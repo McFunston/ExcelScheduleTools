@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Globalization;
+using ExcelDataGrabber;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ScheduleEntities;
 
-namespace ExcelDataGrabber
+namespace ExcelScheduleTools
 {
     public class ExcelSchedule : ExcelFile
     {
@@ -101,6 +103,12 @@ namespace ExcelDataGrabber
             ci.Calendar.TwoDigitYearMax = 2099;
             DateTime dt = DateTime.ParseExact(GetCellContents(column, GetJobNumberRow(jobNumber)), format, ci);
             return dt;
+        }
+        public Schedule ConvertToSchedule(ColumnWorkUnitMap map)
+        {
+            Schedule schedule = new Schedule();
+
+            return schedule;
         }
     }
 }

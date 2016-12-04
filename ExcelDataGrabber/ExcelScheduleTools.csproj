@@ -7,8 +7,8 @@
     <ProjectGuid>{B3BFBCCA-97E6-4A3D-BFEF-6785364D860F}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ExcelDataGrabber</RootNamespace>
-    <AssemblyName>ExcelDataGrabber</AssemblyName>
+    <RootNamespace>ExcelScheduleTools</RootNamespace>
+    <AssemblyName>ExcelScheduleTools</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -60,6 +60,12 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ScheduleEntities\ScheduleEntities.csproj">
+      <Project>{4b564e0d-c4e2-4a29-a2a3-8e2bdf2260c0}</Project>
+      <Name>ScheduleEntities</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

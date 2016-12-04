@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using ExcelScheduleTools;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ExcelDataGrabber;
 using System;
 using System.Collections.Generic;
@@ -6,6 +7,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ExcelScheduleToolsTests;
+
+namespace ExcelScheduleTools.Tests
+{
+    [TestClass()]
+    public class ExcelScheduleTests
+    {
+        [TestMethod()]
+        public void ConvertToScheduleTest()
+        {
+            Assert.Fail();
+        }
+    }
+}
 
 namespace ExcelDataGrabber.Tests
 {

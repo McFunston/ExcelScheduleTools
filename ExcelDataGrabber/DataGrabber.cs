@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ExcelDataGrabber
+namespace ExcelScheduleTools
 {
     public static class DataGrabber
     {

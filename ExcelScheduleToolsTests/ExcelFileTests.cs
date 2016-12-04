@@ -51,7 +51,7 @@ namespace ExcelDataGrabber.Tests
 
             //Act
             var actual = fakeExcel.ColumnCount;
-            int expected = 3;
+            int expected = 8;
 
             Assert.AreEqual(expected, actual);
         }

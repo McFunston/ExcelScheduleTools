@@ -2,7 +2,7 @@
 
 namespace ScheduleEntities
 {
-    interface IWorkUnit
+    public interface IWorkUnit
     {
         string ClientName { get; set; }
         float Duration { get; set; }
