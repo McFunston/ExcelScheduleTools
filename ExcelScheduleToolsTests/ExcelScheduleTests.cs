@@ -18,6 +18,19 @@ namespace ExcelScheduleTools.Tests
         {
             Assert.Fail();
         }
+
+        [TestMethod()]
+        public void IsReadyTest()
+        {
+            //Arrange
+            ExcelSchedule fakeExcel = Mock.returnFakeSchedule();
+
+            //Act
+            var actual = fakeExcel.IsReady("Approved to Print", 7, 0);
+            bool expected = true;
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
     }
 }
 

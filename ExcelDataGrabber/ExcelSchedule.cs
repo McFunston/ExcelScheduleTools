@@ -104,6 +104,18 @@ namespace ExcelScheduleTools
             DateTime dt = DateTime.ParseExact(GetCellContents(column, GetJobNumberRow(jobNumber)), format, ci);
             return dt;
         }
+
+        public bool IsReady(string ReadyString, int column, int row)
+        {
+            var FoundString = GetCellContents(column, row);
+            if (FoundString == ReadyString)
+            {
+                return true;
+            }
+            return false;
+        }
+
+
         public Schedule ConvertToSchedule(ColumnWorkUnitMap map)
         {
             Schedule schedule = new Schedule();
