@@ -31,6 +31,43 @@ namespace ExcelScheduleTools.Tests
             //Assert
             Assert.AreEqual(expected, actual);
         }
+
+        [TestMethod()]
+        public void IsReadyTest2()
+        {
+            //Arrange
+            ExcelSchedule fakeExcel = Mock.returnFakeSchedule();
+
+            //Act
+            var actual = fakeExcel.IsReady("Approved to Print", 7, 1);
+            bool expected = false;
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod()]
+        public void IsReadyTest3()
+        {
+            //Arrange
+            ExcelSchedule fakeExcel = Mock.returnFakeSchedule();
+
+            //Act
+            var actual = fakeExcel.IsReady("Yes", 7, 2);
+            bool expected = true;
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod()]
+        public void FindLikelyJobNumberColumnTest()
+        {
+            //Arrange
+            ExcelSchedule fakeExcel = Mock.returnFakeSchedule();
+            //Act
+            var actual = fakeExcel.FindLikelyJobNumberColumn(0, "\\d\\d\\d\\d\\d\\d");
+            var expected = 0;
+            Assert.AreEqual(expected, actual);
+        }
     }
 }
 

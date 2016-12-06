@@ -19,6 +19,25 @@ namespace ExcelScheduleTools
         public int JobNumberColumn { get; set; }
 
         /// <summary>
+        /// Finds the most likely column containing the job number based on a search string. Returns either a column number or null.
+        /// </summary>
+        /// <param name="rowToSearch"></param>
+        /// <param name="searchExpression"></param>
+        /// <returns>column</returns>
+        public int? FindLikelyJobNumberColumn(int rowToSearch, string searchExpression)
+        {
+            
+            for (int i = 0; i < ColumnCount; i++)
+            {
+                if (System.Text.RegularExpressions.Regex.IsMatch(GetCellContents(i, rowToSearch), searchExpression, System.Text.RegularExpressions.RegexOptions.IgnoreCase))
+                {
+                    return i;
+                }
+            }
+            return null;
+        }
+
+        /// <summary>
         /// Returns a list of job numbers (invoice numbers, docket numbers ... etc). Requires JobNumberColumn to be set or it will return Null
         /// </summary>
         /// <returns>List of strings</returns>
